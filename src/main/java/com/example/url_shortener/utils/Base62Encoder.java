@@ -3,7 +3,7 @@ package com.example.url_shortener.utils;
 public class Base62Encoder {
     private static final String BASE62="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private static String encode(long value){
+    public static String encode(long value){
         StringBuilder sb=new StringBuilder();
         while(value>0){
             sb.append(BASE62.charAt((int)value%62));
