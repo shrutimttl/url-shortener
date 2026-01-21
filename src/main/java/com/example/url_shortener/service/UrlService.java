@@ -2,6 +2,7 @@ package com.example.url_shortener.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.url_shortener.entity.UrlEntity;
 import com.example.url_shortener.repository.UrlRepository;
@@ -23,7 +24,13 @@ public class UrlService {
         return shortCode;
     }
 
-    // public String redirect(String shortCode){
-
-    // }
+    @Transactional
+    public String getOriginalUrl(String shortUrl){
+        UrlEntity entity=repository.findByShortUrl(shortUrl).orElseThrow(()->new RuntimeException("url not found"));
+        entity.setAccessCount(entity.getAccessCount()+1);
+        repository.save(entity);
+        //for returning original url in 1 line
+        // return repository.findByShortUrl(shortUrl).map(UrlEntity::getOriginalUrl).orElseThrow();
+        return entity.getOriginalUrl();
+    }
 }

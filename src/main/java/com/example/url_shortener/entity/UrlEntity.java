@@ -16,10 +16,12 @@ public class UrlEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable=false)
+    @Column(name="original_url",nullable=false)
     private String originalUrl;
 
-    @Column(unique = true)
+    @Column(name="short_url",unique = true)
     private String shortUrl;
+
+    @Column(name="access_count")
     private int accessCount;
 }

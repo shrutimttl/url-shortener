@@ -1,5 +1,8 @@
 package com.example.url_shortener.controller;
 
+import org.springframework.http.HttpHeaders;
+
+import java.net.URI;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,15 @@ public class UrlController {
         return new ResponseEntity<>(Map.of(originalUrl,urlService.shortenUrl(originalUrl)),HttpStatus.CREATED);
     }
 
-    // @GetMapping("/{shortCode}")
-    // public String redirectToOriginalUrl(@PathVariable String shortCode){
-    //     String originalUrl=urlService.redirect(shortCode);
+    @GetMapping("/{shortCode}")
+    public ResponseEntity<Void> redirectToOriginalUrl(@PathVariable String shortCode){
+        String originalUrl=urlService.getOriginalUrl(shortCode);
 
-    //     return new ResponseEntity<>(urlService.)
-    // }
+        HttpHeaders headers=new HttpHeaders();
+        headers.setLocation(
+            URI.create(originalUrl)
+        );
+        return new ResponseEntity<>(headers,HttpStatus.FOUND);
+    }
 
 }
