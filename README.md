@@ -5,4 +5,4 @@ Main learning:
 4. @Transactional used in @Service class
 5. Base62Encoder
 6. Optional<Entity> in repository method
-7. URI.create("your_url");
+7. URI.create("your_url")-> converts string to URI object  as required by headers.setLocation();
